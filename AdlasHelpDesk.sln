@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Domain", "1 - Domain", "{83CB10AE-A605-4EE9-9CDF-AAB427CB0422}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlasHelpDesk.Domain", "AdlasHelpDesk.Domain\AdlasHelpDesk.Domain.csproj", "{31B6A15B-5926-4100-979F-C5ACD9564D74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Infrastructure", "2 - Infrastructure", "{21676B82-F52A-49E0-A82D-34F1B6987CAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlasHelpDesk.Infrastructure", "AdlasHelpDesk.Infrastructure\AdlasHelpDesk.Infrastructure.csproj", "{3B50591E-D2F0-4532-BEE7-43F1C7C9A69C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Application", "3 - Application", "{4F723567-FBF0-41F8-BB17-D6F10A29763D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlasHelpDesk.Application", "AdlasHelpDesk.Application\AdlasHelpDesk.Application.csproj", "{2CA0EA74-0DAC-4A51-A740-BD1ADCB458EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Presentation", "4 - Presentation", "{56594DDD-F907-43A1-934F-A5130989158B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlasHelpDesk.UI", "AdlasHelpDesk.UI\AdlasHelpDesk.UI.csproj", "{32EBADBF-3229-4381-888F-FEBCF22BFC76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31B6A15B-5926-4100-979F-C5ACD9564D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31B6A15B-5926-4100-979F-C5ACD9564D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31B6A15B-5926-4100-979F-C5ACD9564D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31B6A15B-5926-4100-979F-C5ACD9564D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B50591E-D2F0-4532-BEE7-43F1C7C9A69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B50591E-D2F0-4532-BEE7-43F1C7C9A69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B50591E-D2F0-4532-BEE7-43F1C7C9A69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B50591E-D2F0-4532-BEE7-43F1C7C9A69C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CA0EA74-0DAC-4A51-A740-BD1ADCB458EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CA0EA74-0DAC-4A51-A740-BD1ADCB458EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CA0EA74-0DAC-4A51-A740-BD1ADCB458EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CA0EA74-0DAC-4A51-A740-BD1ADCB458EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32EBADBF-3229-4381-888F-FEBCF22BFC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32EBADBF-3229-4381-888F-FEBCF22BFC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32EBADBF-3229-4381-888F-FEBCF22BFC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32EBADBF-3229-4381-888F-FEBCF22BFC76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{31B6A15B-5926-4100-979F-C5ACD9564D74} = {83CB10AE-A605-4EE9-9CDF-AAB427CB0422}
+		{3B50591E-D2F0-4532-BEE7-43F1C7C9A69C} = {21676B82-F52A-49E0-A82D-34F1B6987CAD}
+		{2CA0EA74-0DAC-4A51-A740-BD1ADCB458EE} = {4F723567-FBF0-41F8-BB17-D6F10A29763D}
+		{32EBADBF-3229-4381-888F-FEBCF22BFC76} = {56594DDD-F907-43A1-934F-A5130989158B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A66B467-1B0F-483E-8801-10712B0013B3}
+	EndGlobalSection
+EndGlobal

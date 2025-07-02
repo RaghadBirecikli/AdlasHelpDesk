@@ -1,0 +1,77 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css",
+      "wwwroot/plugins/fontawesome-free/css/all.min.css",
+      "wwwroot/dist/css/adminlte.min.css",
+      "wwwroot/plugins/toastr/toastr.css",
+      "wwwroot/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css",
+      "wwwroot/plugins/datatables-responsive/css/responsive.bootstrap4.min.css",
+      "wwwroot/plugins/datatables-buttons/css/buttons.bootstrap4.min.css",
+      "wwwroot/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
+      "wwwroot/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
+      "wwwroot/plugins/select2/css/select2.min.css",
+      "wwwroot/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css",
+      "wwwroot/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js",
+      "wwwroot/plugins/jquery/jquery.min.js",
+      "wwwroot/plugins/moment/moment.min.js",
+      "wwwroot/plugins/moment/moment-with-locales.js",
+      "wwwroot/plugins/bootstrap/js/bootstrap.bundle.min.js",
+      "wwwroot/plugins/datatables/jquery.dataTables.min.js",
+      "wwwroot/Plugins-master/sorting/datetime-moment.js",
+      "wwwroot/plugins/datatables-buttons/js/dataTables.buttons.min.js",
+      "wwwroot/plugins/datatables-buttons/js/buttons.flash.min.js",
+      "wwwroot/Plugins-master/sorting/turkish-string.js",
+      "wwwroot/plugins/jszip/jszip.min.js",
+      "wwwroot/plugins/pdfmake/pdfmake.min.js",
+      "wwwroot/plugins/pdfmake/vfs_fonts.js",
+      "wwwroot/plugins/datatables-buttons/js/buttons.html5.min.js",
+      "wwwroot/plugins/datatables-buttons/js/buttons.print.min.js",
+      "wwwroot/dist/js/adminlte.min.js",
+      "wwwroot/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js",
+      "wwwroot/plugins/datatables-responsive/js/dataTables.responsive.min.js",
+      "wwwroot/plugins/datatables-responsive/js/responsive.bootstrap4.min.js",
+      "wwwroot/plugins/datatables-buttons/js/buttons.bootstrap4.min.js",
+      "wwwroot/plugins/datatables-buttons/js/buttons.colVis.min.js",
+      "wwwroot/plugins/toastr/toastr.min.js",
+      "wwwroot/plugins/moment/moment.min.js",
+      "wwwroot/plugins/moment/moment-with-locales.min.js",
+      "wwwroot/plugins/inputmask/jquery.inputmask.min.js",
+      "wwwroot/plugins/jquery_MaskMoney/jquery.maskMoney.min.js",
+      "wwwroot/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
+      "wwwroot/plugins/select2/js/select2.full.min.js",
+      "wwwroot/plugins/bs-custom-file-input/bs-custom-file-input.min.js",
+      "wwwroot/plugins/chart.js/Chart.min.js",
+      "wwwroot/plugins/bootstrap-multiselect/js/bootstrap-multiselect.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/site2.js",
+    "inputFiles": [
+      "wwwroot/alazea/js/jquery/jquery-2.2.4.min.js",
+      "wwwroot/alazea/js/bootstrap/popper.min.js",
+      "wwwroot/alazea/js/bootstrap/bootstrap.min.js",
+      "wwwroot/alazea/js/plugins/plugins.js",
+      "wwwroot/alazea/js/active.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  }
+]
