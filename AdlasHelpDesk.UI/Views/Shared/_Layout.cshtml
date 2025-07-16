@@ -1,49 +1,145 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
+    var isRTL = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var currentLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+}
+
+<!DOCTYPE html>
+<html lang="@currentLang" dir="@(isRTL ? "rtl" : "ltr")">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AdlasHelpDesk.UI</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AdlasHelpDesk.UI.styles.css" asp-append-version="true" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - Adlas</title>
+
+    @if (isRTL)
+    {
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    }
+
+    <link href="~/css/site.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    <link href="~/plugins/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/plugins/jquery-ui-1.12.1.custom/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="~/plugins/jquery-ui-1.12.1.custom/jquery-ui.theme.css" rel="stylesheet" />
+    <link rel="icon" href="~/images/nsozlogo-icon.jpg" />
+
+    <style>
+        body {
+            background-color: #EBDDC8;
+            color: #F2F2F2;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .navbar-custom {
+            background-color: #EBDDC8;
+            border-bottom: 1px solid #999;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: #C49A6C !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+            .navbar-brand:hover {
+                text-shadow: 0 0 5px #C49A6C;
+            }
+
+        .btn-gold {
+            background-color: #C49A6C;
+            color: #1C1C1C;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-gold:hover {
+                background-color: #a77f53;
+                color: #fff;
+            }
+
+        a, .nav-link {
+            color: #F2F2F2;
+            text-decoration: none;
+        }
+
+            a:hover, .nav-link:hover {
+                color: #C49A6C;
+            }
+
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(28, 28, 28, 0.8);
+            z-index: 99;
+            display: none;
+        }
+
+        #loading-image {
+            position: absolute;
+            height: 80px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+    @RenderSection("Styles", required: false)
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AdlasHelpDesk.UI</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <header class="navbar-custom">
+        <div class="container d-flex justify-content-between align-items-center py-2">
+            <a href="/" class="navbar-brand d-flex align-items-center gap-2">
+                <img src="~/images/adlashelpdesk.png" alt="Adlas Logo" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" />
+                Adlas
+            </a>
+
+            <div class="d-flex align-items-center">
+                <partial name="_SelectLanguage" />
+
+                <a asp-area="admin" asp-controller="auth" asp-action="login" class="btn btn-sm btn-gold ms-3">
+                    <i class="fa fa-user"></i> @localizer["Login"]
+                </a>
             </div>
-        </nav>
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        @RenderBody()
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loading">
+        <img id="loading-image" src="~/Images/loading.gif" alt="Loading..." />
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - AdlasHelpDesk.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <!-- Footer -->
+    <partial name="_Footer" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/plugins/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+
+    <partial name="_Scripts" />
+    @await Component.InvokeAsync("Notyf")
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

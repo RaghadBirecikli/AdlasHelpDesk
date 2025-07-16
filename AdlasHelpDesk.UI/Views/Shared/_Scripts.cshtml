@@ -1,0 +1,337 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $.fn.dataTable.ext.type.order['formatted_numbers-pre'] = function (a) {
+            a = a.replaceAll('.', '').replaceAll(',', '.');
+            a = (a === " ") ? 0 : a.replace(/[^\d\-\.]/g, "");
+            console.log(a);  // for debugging only
+            return parseFloat(a);
+        };
+        $("#table").DataTable({
+            /* No ordering applied by DataTables during initialisation */
+            "order": [],
+            "bSort": true,
+            columnDefs: [
+                {
+                    targets: '_all',
+                    type: 'turkish'
+                }
+            ],
+            "language": {
+                'search': 'Hızlı arama', /*Empty to remove the label*/
+                "decimal": ",",
+                "thousands": "."
+            },
+            "responsive": false, "lengthChange": false, "autoWidth": true, "paging": false, "info": false,
+            "buttons": [{
+                extend: 'copy',
+                text: 'Kopyala',
+                filename: function () {
+                    var d = new Date();
+                    var n = d.getTime();
+                    return 'list' + n;
+                },
+            }/*, "csv"*/, {
+                text: ' Excele Aktar',
+                filename: function () {
+                    var d = new Date();
+                    var n = d.getTime();
+                    return 'list' + n;
+                },
+                extend: 'excel',
+                footer: true,
+                charset: 'utf-8',
+                bom: true,
+                exportOptions: {
+                    columns: ':visible',
+                    format: {
+                        body: function (data, row, column, node) {
+                            data = $('<p>' + data + '</p>').text();
+                            return $.isNumeric(data.replace('.', '').replace(',', '.')) ? data.replace('.', '').replace(',', '.') : data;
+                        }
+                    }
+                }
+            }, {
+                extend: 'pdf',
+                text: 'PDF',
+                orientation: 'landscape',
+                pageSize: 'LEGAL',
+                filename: function () {
+                    var d = new Date();
+                    var n = d.getTime();
+                    return 'list' + n;
+                },
+            }, {
+                extend: 'print',
+                text: 'Yazdır',
+                filename: function () {
+                    var d = new Date();
+                    var n = d.getTime();
+                    return 'list' + n;
+                },
+            }/*, "colvis"*/]
+        }).buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+    });
+</script>
+
+<script>
+    $(function () {
+        $("#table2").DataTable({
+            language: {
+                'search': 'Hızlı arama', /*Empty to remove the label*/
+                "decimal": ",",
+                "thousands": "."
+            },
+            "responsive": false, "lengthChange": false, "autoWidth": false, "paging": false, "info": false,
+        }).buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+    });
+</script>
+
+<script>
+    $(function () {
+        $('.datemask').attr("data-inputmask-placeholder", "gg/aa/yyyy");
+        $('.datemask').attr("data-inputmask-inputformat", "dd/mm/yyyy");
+        $('.datemask').attr("data-inputmask-alias", "datetime");
+        $('.datemask').inputmask()
+    })
+    $('.datamask').inputmask();
+
+</script>
+<script>
+    function setTwoNumberDecimal(el, num) {
+        var t = parseFloat(el.value.replace(",", ".")).toFixed(num);
+        if (t > 0)
+            el.value = t.replace(",", "").replace(".", ",");
+        else
+            el.value = 0;
+    };
+</script>
+@*script for loading element*@
+<script>
+    $(window).on("load", function () {
+        $('#loading').hide();
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('.reservdate').datetimepicker({
+            locale: 'tr',
+            format: 'DD/MM/yyyy'
+        });
+    });
+    $(document).ready(function () {
+
+        $('.multi-Select').multiselect(
+            {
+                includeSelectAllOption: true,
+                buttonTextAlignment: 'left',
+                enableCaseInsensitiveFiltering: true,
+                selectAllText: 'Hepsini Seç',
+                allSelectedText: 'Hepsi seçildi',
+                includeSelectAllOption: true,
+                filterPlaceholder: 'Ara',
+                nSelectedText: 'Seçildi',
+                nonSelectedText: 'Hiçbiri seçilmedi',
+                enableFiltering: true,
+                maxHeight: 400
+            }
+        );
+        $('.multi-Select-all').multiselect(
+            {
+                includeSelectAllOption: true,
+                buttonTextAlignment: 'left',
+                enableCaseInsensitiveFiltering: true,
+                selectAllText: 'Hepsini Seç',
+                allSelectedText: 'Hepsi seçildi',
+                includeSelectAllOption: true,
+                filterPlaceholder: 'Ara',
+                nSelectedText: 'Seçildi',
+                nonSelectedText: 'Hiçbiri seçilmedi',
+                enableFiltering: true,
+                maxHeight: 400
+            }
+        ).multiselect('selectAll', false)
+            .multiselect('updateButtonText');
+
+    });
+
+</script>
+<script type="text/javascript">
+    $('#datetimepicker').datetimepicker({
+        format: "YYYY",
+        viewMode: "years"
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('.datepickernoIcon').datetimepicker({
+            locale: 'tr',
+            format: 'DD/MM/yyyy'
+
+        });
+    });
+</script>
+<script>
+    showInPopup = (url, title, size) => {
+        $("#form-modal .modal-dialog").addClass("modal-" + size);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (res) {
+                $("#form-modal .modal-title").html(title);
+                $("#form-modal .modal-body").html(res);
+                $("#form-modal").modal('show');
+            }
+        })
+    }
+</script>
+<script>
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) {
+            var btn = document.getElementById('btnClose'); // Works!
+            if (btn != null) {
+                $('#loading').show();
+                btn.click();
+            }
+        }
+    });
+</script>
+<script>
+    $("#btnClose").on("click", function () {
+        $('#loading').show();
+    });
+</script>
+<style>
+    .ui-autocomplete {
+        max-height: 250px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding-right: 20px;
+    }
+</style>
+<script>
+    function autoComplete(tag) {
+        $(tag).autocomplete({
+            source: function (request, response) {
+                var typeID = $(tag).attr('typeID');
+                if ($(tag).attr('selectID') != null) {
+                    var select = document.getElementById($(tag).attr('selectID'));
+                    var value = select.options[select.selectedIndex].value;
+                    typeID = value;
+                }
+                $.ajax({
+                    url: $(tag).attr('actionLink'),
+                    dataType: "json",
+                    data: { "prefix": request.term, "typeID": typeID },
+                    type: "POST",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }));
+
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $($(tag).attr('hiddenId')).val(i.item.val);
+            },
+            minLength: 2,
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
+        $(".autocomplete-Modal").autocomplete("option", "appendTo", "#form-modal");
+    }
+</script>
+<script>
+    function resizeTextBox() {
+        $('.autoExpand').each(function (i, txt) {
+            txt.style.height = "67px";
+            txt.style.height = (1 + txt.scrollHeight) + "px";
+        });
+    }
+    $('.autoExpand').each(function (textarea) {
+        $(this).height($(this)[0].scrollHeight);
+    });
+</script>
+<script>
+    function resizeTxtAutoComplete() {
+        $('.autoExpand_AutoComplete').each(function (i, txt) {
+            txt.style.height = "67px";
+            txt.style.height = (1 + txt.scrollHeight) + "px";
+        });
+    }
+    $('.autoExpand_AutoComplete').each(function (textarea) {
+        txt.style.height = "67px";
+        $(this).height($(this)[0].scrollHeight);
+    });
+</script>
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $('.custom-file-input').on("change", function () {
+            var fileLabel = $(this).next('.custom-file-label');
+            var files = $(this)[0].files;
+            if (files.length > 1) {
+                fileLabel.html(files.length + ' dosyalar seçildi');
+            }
+            else if (files.length == 1) {
+                fileLabel.html(files[0].name);
+            }
+        });
+    });
+</script>
+<script>
+    var mx = 0;
+
+    $(".drag").on({
+        mousemove: function (e) {
+            var mx2 = e.pageX - this.offsetLeft;
+            if (mx) this.scrollLeft = this.sx + mx - mx2;
+        },
+        mousedown: function (e) {
+            this.sx = this.scrollLeft;
+            mx = e.pageX - this.offsetLeft;
+        }
+    });
+
+    $(document).on("mouseup", function () {
+        mx = 0;
+    });
+</script>
+<script>
+    $(".mask_money").maskMoney({ allowNegative: true, thousands: '.', decimal: ',', precision: 2, affixesStay: false });
+</script>

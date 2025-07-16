@@ -1,5 +1,4 @@
 ﻿
-
 namespace AdlasHelpDesk.Infrastructure.Managers
 {
 	public class MemberService : IMemberService
@@ -11,15 +10,17 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 		private readonly IHostingEnvironment _hostEnvironment;
 		List<string> attributes;
 		private readonly string TableName = "Member";
+        private readonly IStringLocalizer _localizer;
 
-		public MemberService(IMapper mapper, IMemberRepository memberRepository, IHostingEnvironment hostEnvironment,  ICurrentUserService currentUserService, IUnitOfWork unitOfWork)
+        public MemberService(IStringLocalizer localizer, IMapper mapper, IMemberRepository memberRepository, IHostingEnvironment hostEnvironment,  ICurrentUserService currentUserService, IUnitOfWork unitOfWork)
 		{
 			_mapper = mapper;
 			_currentUserService = currentUserService;
 			_unitOfWork = unitOfWork;
 			_memberRepository = memberRepository;
 			_hostEnvironment = hostEnvironment;
-		}
+            _localizer = localizer;
+        }
 
 		private List<string> GetTranslatedAttributes(Member member)
 		{
@@ -38,7 +39,7 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 		}
 		public async Task<ListResult<MemberDto>> GetList()
 		{
-			List<MemberDto> list = _mapper.Map<List<MemberDto>>(await _memberRepository.GetListAsync(x => x.IsActive && x.IsShownOnWebsite == true, x => x.Sort, false));
+			List<MemberDto> list = _mapper.Map<List<MemberDto>>(await _memberRepository.GetListAsync(x => x.IsActive , x => x.Name, false));
 
 			var translatedAttributes = GetTranslatedAttributes(new Member());
 			//if (translatedAttributes.Any())
@@ -75,11 +76,7 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 			member.Password = Functions.MD5(model.Password);
 			member.Id = Guid.NewGuid();
 
-			if (model.ImageFile != null)
-			{
-				string imagePath = await Functions.SaveImage(model.ImageFile, member, _hostEnvironment);
-				member.Image = imagePath;
-			}
+		
 
 			member = await _memberRepository.AddAsync(member);
 
@@ -87,7 +84,7 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 			//	await _memberRepository.AddTranlations(member, model, GetTranslatedAttributes(member));
 
 			await _unitOfWork.CompleteAsync();
-			return new ObjectResult<MemberUpsertDto>(Meta.CustomSuccess(ConstantMessages.RecordAdded), _mapper.Map<MemberUpsertDto>(member));
+			return new ObjectResult<MemberUpsertDto>(Meta.CustomSuccess(_localizer["RecordAdded"]), _mapper.Map<MemberUpsertDto>(member));
 		}
 
 		public async Task<ObjectResult<MemberUpsertDto>> Update(MemberUpsertDto model)
@@ -112,24 +109,11 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 			entity.IsAdmin = model.IsAdmin;
 			entity.Email = model.Email;
 			entity.JobTitle = model.JobTitle;
-			entity.IsShownOnWebsite = model.IsShownOnWebsite;
-			entity.Linkedin = model.Linkedin;
-			entity.Instagram = model.Instagram;
-			entity.FaceBook = model.FaceBook;
 			entity.Phone = model.Phone;
-			entity.Sort = model.Sort;
 			entity.Description = model.Description;
-			entity.Twiter = model.Twiter;
 			entity.Address = model.Address;
 
-			if (model.ImageFile != null)
-			{
-				if (!string.IsNullOrEmpty(entity.Image))
-					Functions.DeleteImage(entity.Image, entity, _hostEnvironment);
-
-				string imagePath = await Functions.SaveImage(model.ImageFile, entity, _hostEnvironment);
-				entity.Image = imagePath;
-			}
+		
 			if (model.Password != null)
 				entity.Password = Functions.MD5(model.Password);
 			entity = _memberRepository.Update(entity);
@@ -138,7 +122,7 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 			//	await _memberRepository.UpdateTranslations(entity, model, GetTranslatedAttributes(entity));
 			await _unitOfWork.CompleteAsync();
 
-			return new ObjectResult<MemberUpsertDto>(Meta.CustomSuccess(ConstantMessages.RecordUpdated), _mapper.Map<MemberUpsertDto>(entity));
+			return new ObjectResult<MemberUpsertDto>(Meta.CustomSuccess(_localizer["RecordUpdated"]), _mapper.Map<MemberUpsertDto>(entity));
 		}
 		public async Task<Result> Delete(Guid id)
 		{
@@ -151,11 +135,10 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 				return new Result(Meta.CustomError("Son Personel Silinmez!"));
 			}
 
-			if (!string.IsNullOrEmpty(entity.Image))
-				Functions.DeleteImage(entity.Image, entity, _hostEnvironment);
+			
 			_memberRepository.Delete(entity);
 			await _unitOfWork.CompleteAsync();
-			return new Result(Meta.CustomSuccess(ConstantMessages.RecordDeleted));
+			return new Result(Meta.CustomSuccess(_localizer["RecordDeleted"]));
 		}
 		public async Task<PagingResult<MemberDto>> GetPage(MemberPageFilter filter)
 		{

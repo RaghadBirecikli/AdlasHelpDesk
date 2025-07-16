@@ -1,0 +1,54 @@
+﻿@using AdlasHelpDesk.UI.Areas.Admin.ViewModels;
+@model IPagingVM
+
+<input type="hidden" id="hdnPage" asp-for="@Model.PagingParameters.Page" />
+<div class="row w-75">
+    <ul class="pagination" style="cursor: pointer">
+        <li class="page-item">
+            <a ID="btnPrevious" style="font-size:16px" class='page-link text-primary' onclick=' @(Model.PagingParameters.Page==1 ? "" : "ChangePage('prev')") '>Geri</a>
+        </li>
+        <li class="page-item">
+            <label asp-for="@Model.PagingParameters.Page" ID="lblCurrentPage" style="color:black;font-size:16px" class="page-link text-primary">@Model.PagingParameters.Page/@Model.PagingParameters.TotalPages</label>
+        </li>
+        <li class="page-item">
+            <a class='page-link text-primary' style="font-size:16px" onclick=' @(Model.PagingParameters.Page>=Model.PagingParameters.TotalPages ? "" : "ChangePage('next')")'>İleri</a>
+        </li>
+    </ul>
+    <ul class="pagination" style="cursor: pointer">
+        <li class="page-item">
+            <select asp-for="@Model.PagingParameters.PageSize" ID="drpNumberOfRows" class="page-link text-primary select2-blue pageSelect">
+                <!option @(Model.PagingParameters.PageSize == 50 ? "selected" : "") label="50" Value="50" />
+                <!option @(Model.PagingParameters.PageSize == 100 ? "selected" : "") label="100" Value="100" />
+                <!option @(Model.PagingParameters.PageSize == 1000 ? "selected" : "") label="1000" Value="1000" />
+                @*<!option @(Model.PagingParameters.PageSize == Model.PagingParameters.TotalCount ? "selected" : "" ) label="Hepsi" Value="@Model.PagingParameters.TotalCount" />*@
+                <!option @(Model.PagingParameters.PageSize == Model.PagingParameters.TotalCount ? "selected" : "") label="Hepsi" Value="-1" />
+
+            </select>
+        </li>
+        <li class="page-item">
+            <select asp-for="@Model.PagingParameters.OrderBy" ID="drpOrderBy" class="page-link text-primary select2-blue pageSelect" asp-items=@Model.OrderByItems>
+            </select>
+        </li>
+        <li class="page-item">
+            <select asp-for="@Model.PagingParameters.IsDesc" ID="drpIsDecsending" class="page-link text-primary select2-blue pageSelect">
+                <!option @(!Model.PagingParameters.IsDesc ? "selected" : "") label="Artan" Value="false" />
+                <!option @(Model.PagingParameters.IsDesc ? "selected" : "") label="Azalan" Value="true" />
+            </select>
+        </li>
+    </ul>
+</div>
+
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<script>
+    $(".pageSelect").each(function (i, tag) {
+        $(tag).change(function () {
+            $('#mainForm').submit();
+        });
+    });
+    function ChangePage(btn) {
+        var page = Number($('#hdnPage').val());
+        btn == 'prev' ? $('#hdnPage').val(page - 1) : $('#hdnPage').val(page + 1);
+        $('#mainForm').submit();
+
+    };
+</script>

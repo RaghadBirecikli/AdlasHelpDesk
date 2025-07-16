@@ -1,6 +1,4 @@
 
-using System.Globalization;
-
 namespace AdlasHelpDesk.Infrastructure.Managers
 {
 	public class CompanyService : ICompanyService
@@ -11,10 +9,11 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IHostingEnvironment _hostEnvironment;
 		private readonly string TableName = "Company";
+        private readonly IStringLocalizer _localizer;
 
-		List<string> attributes;
+        List<string> attributes;
 
-		public CompanyService(IUnitOfWork unitOfWork,
+		public CompanyService(IStringLocalizer localizer, IUnitOfWork unitOfWork,
 			ICompanyRepository CompanyRepository, IHostingEnvironment hostEnvironment, IMapper mapper, ICurrentUserService currentUserService)
 		{
 			_mapper = mapper;
@@ -22,7 +21,8 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 			_CompanyRepository = CompanyRepository;
 			_hostEnvironment = hostEnvironment;
 			_unitOfWork = unitOfWork;
-		}
+            _localizer = localizer;
+        }
 
 		private List<string> GetTranslatedAttributes(Company member)
 		{
@@ -30,11 +30,6 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 			{
 				attributes = new List<string>();
 				attributes.Add(Functions.GetPropertyName(() => member.Description));
-				attributes.Add(Functions.GetPropertyName(() => member.FooterDescription));
-				attributes.Add(Functions.GetPropertyName(() => member.SoftwareProductPageDescription));
-				attributes.Add(Functions.GetPropertyName(() => member.AboutUsPageDescription));
-				attributes.Add(Functions.GetPropertyName(() => member.AboutUsPageContext));
-				attributes.Add(Functions.GetPropertyName(() => member.ContactPageDescription));
 			}
 			return attributes;
 		}
@@ -58,48 +53,17 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 				return new ObjectResult<CompanyUpsertDto>(Meta.NotFound());
 
 			entity.Name = model.Name;
-			entity.FirstPhone = model.FirstPhone;
-			entity.SecondPhone = model.SecondPhone;
-			entity.GooglePlus = model.GooglePlus;
-			entity.YouTube = model.YouTube;
-			entity.FirstAddress = model.FirstAddress;
-			entity.SecondAddress = model.SecondAddress;
 			entity.Description = model.Description;
 			entity.Email = model.Email;
-			entity.Twiter = model.Twiter;
-			entity.FaceBook = model.FaceBook;
-			entity.FooterDescription = model.FooterDescription;
-			entity.AboutUsPageDescription = model.AboutUsPageDescription;
-			entity.SoftwareProductPageDescription = model.SoftwareProductPageDescription;
-			entity.ContactPageDescription = model.ContactPageDescription;
-			entity.Instagram = model.Instagram;
-			entity.Linkedin = model.Linkedin;
-			entity.AboutUsPageContext = model.AboutUsPageContext;
 
-
-			if (model.IconFile != null)
-			{
-				if (!string.IsNullOrEmpty(entity.Icon))
-					Functions.DeleteImage(entity.Icon, entity, _hostEnvironment);
-
-				string imagePath = await Functions.SaveImage(model.IconFile, entity, _hostEnvironment);
-				entity.Icon = imagePath;
-			}
-			if (model.LogoFile != null)
-			{
-				if (!string.IsNullOrEmpty(entity.Logo))
-					Functions.DeleteImage(entity.Logo, entity, _hostEnvironment);
-
-				string imagePath = await Functions.SaveImage(model.LogoFile, entity, _hostEnvironment);
-				entity.Logo = imagePath;
-			}
+		
 			entity = _CompanyRepository.Update(entity);
 
 			//if (GetTranslatedAttributes(entity).Any())
 			//	await _CompanyRepository.UpdateTranslations(entity, model, GetTranslatedAttributes(entity));
 
 			await _unitOfWork.CompleteAsync();
-			return new ObjectResult<CompanyUpsertDto>(Meta.CustomSuccess(ConstantMessages.RecordUpdated), _mapper.Map<CompanyUpsertDto>(entity));
+			return new ObjectResult<CompanyUpsertDto>(Meta.CustomSuccess(_localizer["RecordUpdated"]), _mapper.Map<CompanyUpsertDto>(entity));
 		}
 
 	}

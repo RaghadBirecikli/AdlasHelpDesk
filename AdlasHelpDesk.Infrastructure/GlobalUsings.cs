@@ -17,3 +17,4 @@ global using Microsoft.AspNetCore.Http;
 global using AdlasHelpDesk.Infrastructure.ExpressionBuilders;
 global using AdlasHelpDesk.Application.IRepositories;
 global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.Extensions.Localization;

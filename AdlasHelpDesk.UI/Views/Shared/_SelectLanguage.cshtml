@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> options
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultures = options.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+
+    var path = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+    var queryString = Context.Request.QueryString.Value;
+    var returnUrl = string.IsNullOrEmpty(queryString) ? path : $"{path}{queryString}";
+
+    var btnBackground = "#CBB690";
+    var btnTextColor = "#2D2D2D";
+    var dropdownBg = "#FFFFFF";
+    var dropdownItemHoverBg = "#EBDDC8";
+}
+
+<div class="dropdown">
+    <button class="btn dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+            style="background-color:@btnBackground; color:@btnTextColor; border:none; font-weight:bold;">
+        🌐
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="languageDropdown" style="background-color:@dropdownBg;">
+        @foreach (var culture in cultures)
+        {
+            <li>
+                <a class="dropdown-item" style="color:@btnTextColor;"
+                   asp-controller="Home" asp-action="SetLanguage"
+                   asp-route-culture="@culture.Value" asp-route-returnUrl="@returnUrl"
+                   onmouseover="this.style.backgroundColor='@dropdownItemHoverBg';"
+                   onmouseout="this.style.backgroundColor='';">
+                    @culture.Text
+                </a>
+            </li>
+        }
+    </ul>
+</div>

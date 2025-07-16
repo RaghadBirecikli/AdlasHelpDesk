@@ -23,9 +23,6 @@ namespace AdlasHelpDesk.UI.Middlewares
 
                 switch (browserLanguage)
                 {
-                    case "tr":
-                        culture = "tr";
-                        break;
                         
                     case "ar":
                         culture = "ar";
@@ -35,13 +32,6 @@ namespace AdlasHelpDesk.UI.Middlewares
                         culture = "en";
                         break;
 
-                    case "de":
-                        culture = "de";
-                        break;
-
-                    default:
-                        culture = "en";
-                        break;
                 }
 
                 var requestCulture = new RequestCulture(culture, culture);

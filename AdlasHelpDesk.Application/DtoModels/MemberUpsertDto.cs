@@ -13,55 +13,36 @@ namespace AdlasHelpDesk.Application.DtoModels
     public class MemberUpsertDto
     {
         public Guid? Id { get; set; }
-
-        [StringLength(100, MinimumLength = 2)]
-        [Required(ErrorMessage = "Ad Alanı Boş Geçilemez")]
+        [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        [StringLength(100, MinimumLength = 2)]
-        [Required(ErrorMessage = "Soyad Alanı Boş Geçilemez")]
+        [Required, MaxLength(100)]
         public string Surname { get; set; }
-        [StringLength(200, MinimumLength = 2)]
-        public string? FullName { get; set; }
-        [StringLength(50, MinimumLength = 2)]
-        [Required(ErrorMessage = "Kullanıcı Adı Alanı Boş Geçilemez")]
-        public string UserName { get; set; }
-        [StringLength(200)]
-        public string? Password { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsAdmin { get; set; }
+
         [MaxLength(50)]
         public string? Email { get; set; }
-        public string? JobTitle { get; set; } // default
-        public string? JobTitleEn { get; set; } // English
-        public string? JobTitleTr { get; set; } // Turkish
-        public string? JobTitleDe { get; set; } // Dutch
-        [StringLength(300)]
-        public string? Image { get; set; }
 
-        [DataType(DataType.Password)]
-        [Compare("RValidatePassword", ErrorMessage = "Şifreler Aynı Değildir")]
-        public string? ValidatePassword { get; set; }
-        [DataType(DataType.Password)]
-        public string? RValidatePassword { get; set; }
-        public bool isUpsertPassword { get; set; }
+        [Required, MaxLength(200)]
+        public string Password { get; set; } // يفضل أن يُرسل مشفرًا أو يتم تشفيره قبل التخزين
 
-        public IFormFile? ImageFile { get; set; }
-		[MaxLength(20)]
-		public string? Phone { get; set; }
-		public string? Description { get; set; }
-		public bool IsShownOnWebsite { get; set; }
-		public int? Sort { get; set; }
-		[MaxLength(200)]
-		public string? Instagram { get; set; }
-		[MaxLength(200)]
-		public string? FaceBook { get; set; }
-		[MaxLength(200)]
-		public string? Twiter { get; set; }
-		[MaxLength(200)]
-		public string? Linkedin { get; set; }
+        [Required, MaxLength(50)]
+        public string UserName { get; set; }
 
-		[MaxLength(400)]
-		public string? Address { get; set; }
-	}
+        public bool IsActive { get; set; } = true;
+        public bool IsAdmin { get; set; } = false;
+
+        [MaxLength(50)]
+        public string? JobTitle { get; set; }
+
+        [MaxLength(20)]
+        public string? Phone { get; set; }
+
+        public string? Description { get; set; }
+
+        [MaxLength(400)]
+        public string? Address { get; set; }
+
+        [Required]
+        public Guid CompanyId { get; set; }
+    }
 }

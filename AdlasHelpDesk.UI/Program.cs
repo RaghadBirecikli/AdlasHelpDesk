@@ -40,6 +40,11 @@ builder.Services.AddLocalization();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 builder.Services.AddSingleton<JsonStringLocalizer>();
+builder.Services.AddSingleton<IStringLocalizer>(provider =>
+{
+    var factory = provider.GetRequiredService<IStringLocalizerFactory>();
+    return factory.Create(null);
+});
 
 builder.Services.AddMvc()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -126,7 +131,7 @@ app.UseRouting();
 
 var supportedCultures = new[] { "en", "ar" };
 var localizationOptions = new RequestLocalizationOptions()
-    //.SetDefaultCulture(supportedCultures[0])
+    .SetDefaultCulture(supportedCultures[1])
     .AddSupportedCultures(supportedCultures)
     .AddSupportedUICultures(supportedCultures);
 

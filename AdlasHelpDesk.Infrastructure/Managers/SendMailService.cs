@@ -7,15 +7,17 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 		private readonly ISendMailRepository _SendMailRepository;
 		private readonly IUnitOfWork _unitOfWork;
 		List<string> attributes;
-		private readonly string TableName = "SendMail";
+        private readonly IStringLocalizer _localizer;
+        private readonly string TableName = "SendMail";
 
-		public SendMailService(IUnitOfWork unitOfWork,
+		public SendMailService(IStringLocalizer localizer, IUnitOfWork unitOfWork,
 			ISendMailRepository SendMailRepository, IMapper mapper)
 		{
 			_mapper = mapper;
 			_SendMailRepository = SendMailRepository;
 			_unitOfWork = unitOfWork;
-		}
+            _localizer = localizer;
+        }
 		
 
 		public async Task<ObjectResult<SendMailUpsertDto>> Add(SendMailUpsertDto model)
@@ -27,7 +29,7 @@ namespace AdlasHelpDesk.Infrastructure.Managers
 			SendMail = await _SendMailRepository.AddAsync(SendMail);
 
 			await _unitOfWork.CompleteAsync();
-			return new ObjectResult<SendMailUpsertDto>(Meta.CustomSuccess(ConstantMessages.RecordAdded), _mapper.Map<SendMailUpsertDto>(SendMail));
+			return new ObjectResult<SendMailUpsertDto>(Meta.CustomSuccess(_localizer["RecordAdded"]), _mapper.Map<SendMailUpsertDto>(SendMail));
 		}
 
 

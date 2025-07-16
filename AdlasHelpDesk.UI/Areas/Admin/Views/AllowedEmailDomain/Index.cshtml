@@ -1,0 +1,75 @@
+﻿@model AllowedEmailDomainVM
+@{
+    ViewData["Title"] = @localizer["Allowed Email Domain"];
+    ViewData["ActiveSidebar"] = "liAllowedEmailDomain";
+    var isRTL = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    string alignClass = isRTL ? "text-right" : "text-left";
+}
+
+<form id="mainForm" asp-action="Index" method="get">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Filter Box -->
+                    <!-- Data Table Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="row w-100 align-items-center">
+                                <div class="col">
+                                    <h3 class="card-title">
+                                        @localizer["Allowed Email Domain"] ( @Model.Entities?.Count() )
+                                    </h3>
+                                </div>
+                                <div class="col-auto">
+                                    <a class="btn btn-sm btn-secondary" asp-action="CreateAllowedEmailDomain">
+                                        <i class="ace-icon fa fa-plus"></i> @localizer["Add New Allowed Email Domain"]
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive">
+                           <table class="table table-bordered table-striped" width="100%" dir="@(isRTL ? "rtl" : "ltr")">
+                                <thead>
+                                    <tr>
+                                        <th class="@alignClass">@localizer["Allowed Email Domain Name"]</th>
+                                        <th class="@alignClass">@localizer["Activety Status"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Entities != null && Model.Entities.Any())
+                                    {
+                                        foreach (var item in Model.Entities)
+                                        {
+                                            <tr role="button" onclick="location.href = '@Url.Action("UpdateAllowedEmailDomain", "AllowedEmailDomain", new { id = item.Id })'" style="cursor: pointer;">
+                                                <td class="@alignClass">@item.DomainName</td>
+                                                <td class="@alignClass">
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <span class="badge badge-success">@localizer["Active"]</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-secondary">@localizer["Inactive"]</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="2" class="text-center text-muted @alignClass">@localizer["No Allowed Email Domain found."]</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
