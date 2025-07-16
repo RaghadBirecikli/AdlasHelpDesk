@@ -130,13 +130,20 @@
   "Problem Type Name": "اسم نوع المشكلة",
   "Are you sure you want to delete this Problem Type?": "هل أنت متأكد أنك تريد حذف نوع المشكلة هذا؟",
   "No Problem Type found.": "لم يتم العثور على نوع مشكلة.",
-  "Add New ProductName": "إضافة اسم منتج جديد",
+  "Add New Product Name": "إضافة اسم منتج جديد",
   "Product Name": "اسم المنتج",
   "Are you sure you want to delete this Product Name?": "هل أنت متأكد من حذف اسم المنتج هذا؟",
   "No Product Name found.": "لم يتم العثور على أسماء منتجات.",
   "Publisher": "الناشر",
   "Select Publisher": "اختر الناشر",
-  "Publisher Name": "اسم الناشر"
+  "Publisher Name": "اسم الناشر",
+  "Add New Product Type": "إضافة نوع منتج جديد",
+  "Product Type Name": "اسم نوع المنتج",
+  "Are you sure you want to delete this Product Type?": "هل أنت متأكد أنك تريد حذف نوع المنتج هذا؟",
+  "No Product Type found.": "لم يتم العثور على نوع منتج.",
+  "Add New Publisher": "إضافة ناشر جديد",
+  "Are you sure you want to delete this Publisher?": "هل أنت متأكد أنك تريد حذف هذا الناشر؟",
+  "No Publisher found.": "لم يتم العثور على أي ناشر."
 
 
 }

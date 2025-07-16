@@ -141,13 +141,20 @@
   "Problem Type Name": "Problem Type Name",
   "Are you sure you want to delete this Problem Type?": "Are you sure you want to delete this Problem Type?",
   "No Problem Type found.": "No Problem Type found.",
-  "Add New ProductName": "Add New Problem Type",
-  "Product Name": "Problem Type Name",
-  "Are you sure you want to delete this Product Name?": "Are you sure you want to delete this Problem Type?",
-  "No Product Name found.": "No Problem Type found.",
+  "Add New Product Name": "Add New Product Name",
+  "Product Name": "Product Name",
+  "Are you sure you want to delete this Product Name?": "Are you sure you want to delete this Product Name?",
+  "No Product Name found.": "No Product Name found.",
   "Publisher": "Publisher",
   "Select Publisher": "Select Publisher",
-  "Publisher Name": "Publisher Name"
+  "Publisher Name": "Publisher Name",
+  "Add New Product Type": "Add New Product Type",
+  "Product Type Name": "Product Type Name",
+  "Are you sure you want to delete this Product Type?": "Are you sure you want to delete this Product Type?",
+  "No Product Type found.": "No Product Type found.",
+  "Add New Publisher": "Add New Publisher",
+  "Are you sure you want to delete this Publisher?": "Are you sure you want to delete this Publisher?",
+  "No Publisher found.": "No Publisher found."
 
 
 

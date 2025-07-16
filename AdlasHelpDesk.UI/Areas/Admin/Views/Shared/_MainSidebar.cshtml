@@ -43,8 +43,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item @(ViewData["ActiveTreeMenu"]?.ToString() == "liStockTree" ? "menu-open" : "")">
-                    <a href="#" class="nav-link text-white @(ViewData["ActiveTreeMenu"]?.ToString() == "liStockTree" ? "active" : "")">
+                <li class="nav-item @(ViewData["ActiveTreeMenu"]?.ToString() == "liProductTree" ? "menu-open" : "")">
+                    <a href="#" class="nav-link text-white @(ViewData["ActiveTreeMenu"]?.ToString() == "liProductTree" ? "active" : "")">
                         <i class="nav-icon fas fa-boxes text-primary"></i>
                         <p>
                             @localizer["Products"]
@@ -53,13 +53,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-controller="StockCategory" asp-action="Index" class="nav-link @(ViewData["ActiveSidebar"]?.ToString() == "liStockCategory" ? "active" : "")">
+                            <a asp-controller="ProductType" asp-action="Index" class="nav-link @(ViewData["ActiveSidebar"]?.ToString() == "liProductType" ? "active" : "")">
                                 <i class="far fa-folder-open nav-icon text-warning"></i>
                                 <p>@localizer["Products Types"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="Stock" asp-action="Index" class="nav-link @(ViewData["ActiveSidebar"]?.ToString() == "liStock" ? "active" : "")">
+                            <a asp-controller="ProductName" asp-action="Index" class="nav-link @(ViewData["ActiveSidebar"]?.ToString() == "liProductName" ? "active" : "")">
                                 <i class="fas fa-box nav-icon text-teal"></i>
                                 <p>@localizer["Products Names"]</p>
                             </a>
@@ -103,7 +103,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a asp-area="admin" asp-controller="Company" asp-action="Index" class="nav-link text-white @(ViewData["ActiveSidebar"]?.ToString() == "liCompany" ? "alert-primary" : "")">
+                    <a asp-controller="Publisher" asp-action="Index" class="nav-link text-white @(ViewData["ActiveSidebar"]?.ToString() == "liPublisher" ? "alert-primary" : "")">
                         <i class="nav-icon fas fa-building text-orange"></i>
                         <p>@localizer["Publishers"]</p>
                     </a>
