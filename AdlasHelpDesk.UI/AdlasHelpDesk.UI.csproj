@@ -7,6 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="wwwroot\dropzone-main\**" />
+	  <Content Remove="wwwroot\dropzone-main\**" />
+	  <EmbeddedResource Remove="wwwroot\dropzone-main\**" />
+	  <None Remove="wwwroot\dropzone-main\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Folder Include="Areas\Admin\Controllers\" />
 		<Folder Include="Areas\Admin\Data\" />
 		<Folder Include="Areas\Admin\Models\" />

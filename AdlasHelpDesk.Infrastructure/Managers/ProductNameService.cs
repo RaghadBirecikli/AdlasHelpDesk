@@ -25,6 +25,11 @@ namespace AdlasHelpDesk.Infrastructure.Managers
             var list = await _productNameRepository.GetListAsync(null, x => x.Name, false);
             return new ListResult<ProductNameDto>(Meta.Success(), _mapper.Map<List<ProductNameDto>>(list));
         }
+        public async Task<ListResult<ProductNameDto>> GetProductNamesByPublisher(Guid publisherId)
+        {
+            var list = await _productNameRepository.GetListAsync(x=>x.PublisherId==publisherId, x => x.Name, false);
+            return new ListResult<ProductNameDto>(Meta.Success(), _mapper.Map<List<ProductNameDto>>(list));
+        }
 
         public async Task<ListResult<ProductNameDto>> GetList()
         {

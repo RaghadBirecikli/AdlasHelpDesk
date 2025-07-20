@@ -1,0 +1,161 @@
+﻿@model ProductUpsertVM
+
+@{
+    ViewData["Title"] = localizer["Products"];
+    ViewData["SubTitle"] = Model.ProductUpsertDto?.Id == null ? localizer["Add New Product"] : localizer["Update Product"];
+    ViewData["ActiveSidebar"] = "liProduct";
+    ViewData["ActiveTreeMenu"] = "liProductTree";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="margin: auto !important;">
+                <div class="card card-outline card-primary">
+                    <form asp-action="@(Model.ProductUpsertDto?.Id == null ? "CreateProduct" : "UpdateProduct")" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="ProductUpsertDto.Id" />
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProductUpsertDto.ProductTypeId">@localizer["Product Type"]</label><span class="text-red text-bold">*</span>
+                                        <select asp-for="ProductUpsertDto.ProductTypeId" class="form-control" asp-items="Model.ProductTypes">
+                                            <option value="">@localizer["Select ProductType"]</option>
+                                        </select>
+                                        <span asp-validation-for="ProductUpsertDto.ProductTypeId" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProductUpsertDto.PublisherId">@localizer["Publisher"]</label><span class="text-red text-bold">*</span>
+                                        <select id="publishersList" asp-for="ProductUpsertDto.PublisherId" class="form-control" asp-items="Model.Publishers">
+                                            <option value="">@localizer["Select Publisher"]</option>
+                                        </select>
+                                        <span asp-validation-for="ProductUpsertDto.PublisherId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProductUpsertDto.ProductNameId">@localizer["Product Name"]</label><span class="text-red text-bold">*</span>
+                                        <select asp-for="ProductUpsertDto.ProductNameId" class="form-control" asp-items="Model.ProductNames">
+                                            <option value="">@localizer["Select ProductName"]</option>
+                                        </select>
+                                        <span asp-validation-for="ProductUpsertDto.ProductNameId" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProductUpsertDto.SkillId">@localizer["Skill"]</label><span class="text-red text-bold">*</span>
+                                        <select asp-for="ProductUpsertDto.SkillId" class="form-control" asp-items="Model.Skills">
+                                            <option value="">@localizer["Select Skill"]</option>
+                                        </select>
+                                        <span asp-validation-for="ProductUpsertDto.SkillId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProductUpsertDto.ImageFile">@localizer["Image"]</label>
+                                        <input type="file" asp-for="ProductUpsertDto.ImageFile" class="form-control" />
+                                        <span asp-validation-for="ProductUpsertDto.ImageFile" class="text-danger"></span>
+
+                                        @if (!string.IsNullOrEmpty(Model.ProductUpsertDto?.ImageUrl))
+                                        {
+                                            <div class="mt-2">
+                                                <img src="~/@Model.ProductUpsertDto.ImageUrl" alt="Product Image" style="max-width: 200px; max-height: 150px; border: 1px solid #ccc;" />
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@localizer["Activety Status"]</label>
+                                        <select asp-for="ProductUpsertDto.IsActive" class="form-control">
+                                            <option value="true">@localizer["Active"]</option>
+                                            <option value="false">@localizer["Inactive"]</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="row">
+                                <div class="col-sm-12 pr-10">
+                                    <div class="float-right">
+                                        <a asp-action="Index" class="btn btn-sm btn-secondary m-1 pl-3 pr-3">
+                                            <i class="ace-icon fa fa-arrow-left"></i> @localizer["BackToList"]
+                                        </a>
+                                        @if (Model.ProductUpsertDto?.Id != null)
+                                        {
+                                            <a asp-action="DeleteProduct" asp-route-id="@Model.ProductUpsertDto.Id"
+                                               onclick="return confirm('@localizer["Are you sure you want to delete this Product Name?"]')"
+                                               class="btn btn-sm btn-danger m-1 pl-3 pr-3">
+                                                <i class="ace-icon fa fa-trash bigger-130 "></i> @localizer["Delete"]
+                                            </a>
+                                        }
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            @(Model.ProductUpsertDto?.Id == null ? localizer["Save"] : localizer["Edit"])
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#publishersList').on('change', function () {
+                var publisherId = $(this).val();
+
+                if (!publisherId) {
+                    $('#ProductUpsertDto_ProductNameId').html('<option value="">@localizer["Select ProductName"]</option>');
+                    $('#ProductUpsertDto_SkillId').html('<option value="">@localizer["Select Skill"]</option>');
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("GetProductsNamesAndSkillsByPublisher", "Product")',
+                    type: 'GET',
+                    data: { publisherId: publisherId },
+                    success: function (response) {
+                        // Fill Product Names
+                        var productNameDropdown = $('#ProductUpsertDto_ProductNameId');
+                        productNameDropdown.empty().append('<option value="">@localizer["Select ProductName"]</option>');
+                        $.each(response.productNames, function (i, item) {
+                            productNameDropdown.append(`<option value="${item.value}">${item.text}</option>`);
+                        });
+
+                        // Fill Skills
+                        var skillDropdown = $('#ProductUpsertDto_SkillId');
+                        skillDropdown.empty().append('<option value="">@localizer["Select Skill"]</option>');
+                        $.each(response.skills, function (i, item) {
+                            skillDropdown.append(`<option value="${item.value}">${item.text}</option>`);
+                        });
+                    },
+                    error: function () {
+                        alert("@localizer["An error occurred while loading data."]");
+                    }
+                });
+            });
+        });
+    </script>
+}

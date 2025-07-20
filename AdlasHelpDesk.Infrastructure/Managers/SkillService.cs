@@ -25,6 +25,11 @@ namespace AdlasHelpDesk.Infrastructure.Managers
             var list = await _skillRepository.GetListAsync(null, x => x.Name, false);
             return new ListResult<SkillDto>(Meta.Success(), _mapper.Map<List<SkillDto>>(list));
         }
+        public async Task<ListResult<SkillDto>> GetSkillsByPublisher(Guid publisherId)
+        {
+            var list = await _skillRepository.GetListAsync(x=>x.PublisherId==publisherId, x => x.Name, false);
+            return new ListResult<SkillDto>(Meta.Success(), _mapper.Map<List<SkillDto>>(list));
+        }
 
         public async Task<ListResult<SkillDto>> GetList()
         {

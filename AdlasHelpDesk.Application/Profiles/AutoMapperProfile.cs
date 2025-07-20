@@ -39,11 +39,19 @@ namespace AdlasHelpDesk.Application.Profiles
 
             // Product
             CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<Product, ProductUpsertDto>().ReverseMap();
+            CreateMap<Product, ProductUpsertDto>();
+            CreateMap<ProductUpsertDto, Product>()
+     .ForMember(dest => dest.Publisher, opt => opt.Ignore())
+     .ForMember(dest => dest.Skill, opt => opt.Ignore())
+     .ForMember(dest => dest.ProductName, opt => opt.Ignore())
+     .ForMember(dest => dest.ProductType, opt => opt.Ignore());
+         
 
             // ProductName
             CreateMap<ProductName, ProductNameDto>().ReverseMap();
-            CreateMap<ProductName, ProductNameUpsertDto>().ReverseMap();
+            CreateMap<ProductName, ProductNameUpsertDto>();
+            CreateMap<ProductNameUpsertDto, ProductName>()
+  .ForMember(dest => dest.Publisher, opt => opt.Ignore());
 
             // ProductType
             CreateMap<ProductType, ProductTypeDto>().ReverseMap();
@@ -61,6 +69,7 @@ namespace AdlasHelpDesk.Application.Profiles
             CreateMap<Store, StoreDto>().ReverseMap();
             CreateMap<Store, StoreUpsertDto>().ReverseMap();
 
+
             // TicketStatus
             CreateMap<TicketStatus, TicketStatusDto>().ReverseMap();
             CreateMap<TicketStatus, TicketStatusUpsertDto>().ReverseMap();
@@ -71,7 +80,9 @@ namespace AdlasHelpDesk.Application.Profiles
 
             // Skill
             CreateMap<Skill, SkillDto>().ReverseMap();
-            CreateMap<Skill, SkillUpsertDto>().ReverseMap();
+            CreateMap<Skill, SkillUpsertDto>();
+            CreateMap<SkillUpsertDto, Skill>()
+    .ForMember(dest => dest.Publisher, opt => opt.Ignore());
 
         }
     }

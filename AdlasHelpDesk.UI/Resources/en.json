@@ -154,7 +154,32 @@
   "No Product Type found.": "No Product Type found.",
   "Add New Publisher": "Add New Publisher",
   "Are you sure you want to delete this Publisher?": "Are you sure you want to delete this Publisher?",
-  "No Publisher found.": "No Publisher found."
+  "No Publisher found.": "No Publisher found.",
+  "Add New Purchase Source": "Add New Purchase Source",
+  "Are you sure you want to delete this Purchase Source?": "Are you sure you want to delete this Purchase Source?",
+  "No Purchase Sources found.": "No Purchase Sources found.",
+  "Purchase Source Name": "Purchase Source Name",
+  "Add New Skill": "Add New Skill",
+  "Are you sure you want to delete this Skill?": "Are you sure you want to delete this Skill?",
+  "No Skill found.": "No Skill found.",
+  "Skill Name": "Skill Name",
+  "Add New Store": "Add New Store",
+  "Are you sure you want to delete this Store?": "Are you sure you want to delete this Store?",
+  "No Store found.": "No Store found.",
+  "Store Name": "Store Name",
+  "Tickets Management": "Tickets Management",
+  "Product Type": "Product Type",
+  "Skill": "Skill",
+  "Update Product": "Update Product",
+  "Select ProductType": "Select ProductType",
+  "Select ProductName": "Select Product Name",
+  "Select Skill": "Select Skill",
+  "Upload Image": "Upload Image",
+  "Current Image": "Current Image",
+  "Image": "Image"
+
+
+
 
 
 

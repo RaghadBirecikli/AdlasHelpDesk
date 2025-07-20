@@ -49,6 +49,7 @@ namespace AdlasHelpDesk.UI.Areas.Admin.Controllers
         [HttpPost, Route("/ProductNameCreate")]
         public async Task<IActionResult> CreateProductName(ProductNameUpsertVM model)
         {
+            ModelState.Remove("Publishers");
             if (ModelState.IsValid)
             {
                 ObjectResult<ProductNameUpsertDto> response = await _productNameService.Add(model.ProductNameUpsertDto);
@@ -81,6 +82,7 @@ namespace AdlasHelpDesk.UI.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProductName(ProductNameUpsertVM model)
         {
+            ModelState.Remove("Publishers");
             if (ModelState.IsValid)
             {
                 if (model.ProductNameUpsertDto.Id == null)

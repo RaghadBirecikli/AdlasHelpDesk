@@ -19,7 +19,7 @@ namespace AdlasHelpDesk.Application.DtoModels
         public Guid SkillId { get; set; }
 
         public string? ImageUrl { get; set; }
-
+        public IFormFile? ImageFile { get; set; }
         public bool IsActive { get; set; } = true;
     }
 }

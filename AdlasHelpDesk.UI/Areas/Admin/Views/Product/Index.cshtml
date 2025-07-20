@@ -1,7 +1,7 @@
-﻿@model ProductTypeVM
+﻿@model List<ProductDto>
 @{
-    ViewData["Title"] = @localizer["Products Types"];
-    ViewData["ActiveSidebar"] = "liProductType";
+    ViewData["Title"] = @localizer["Products"];
+    ViewData["ActiveSidebar"] = "liProduct";
     ViewData["ActiveTreeMenu"] = "liProductTree";
     var isRTL = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
     string alignClass = isRTL ? "text-right" : "text-left";
@@ -20,12 +20,12 @@
                             <div class="row w-100 align-items-center">
                                 <div class="col">
                                     <h3 class="card-title">
-                                        @localizer["Products Types"] ( @Model.Entities?.Count() )
+                                        @localizer["Products Names"] ( @Model.Count() )
                                     </h3>
                                 </div>
                                 <div class="col-auto">
-                                    <a class="btn btn-sm btn-secondary" asp-action="CreateProductType">
-                                        <i class="ace-icon fa fa-plus"></i> @localizer["Add New Product Type"]
+                                    <a class="btn btn-sm btn-secondary" asp-action="CreateProduct">
+                                        <i class="ace-icon fa fa-plus"></i> @localizer["Add New Product Name"]
                                     </a>
                                 </div>
                             </div>
@@ -34,17 +34,23 @@
                             <table class="table table-bordered table-striped" width="100%" dir="@(isRTL ? "rtl" : "ltr")">
                                 <thead>
                                     <tr>
+                                        <th class="@alignClass">@localizer["Product Name"]</th>
+                                        <th class="@alignClass">@localizer["Publisher Name"]</th>
                                         <th class="@alignClass">@localizer["Product Type Name"]</th>
+                                        <th class="@alignClass">@localizer["Skill Name"]</th>
                                         <th class="@alignClass">@localizer["Activety Status"]</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.Entities != null && Model.Entities.Any())
+                                    @if (Model != null && Model.Any())
                                     {
-                                        foreach (var item in Model.Entities)
+                                        foreach (var item in Model)
                                         {
-                                            <tr role="button" onclick="location.href = '@Url.Action("UpdateProductType", "ProductType", new { id = item.Id })'" style="cursor: pointer;">
-                                                <td class="@alignClass">@item.Name</td>
+                                            <tr role="button" onclick="location.href = '@Url.Action("UpdateProduct", "Product", new { id = item.Id })'" style="cursor: pointer;">
+                                                <td class="@alignClass">@item.ProductNameName</td>
+                                                <td class="@alignClass">@item.PublisherName</td>
+                                                <td class="@alignClass">@item.ProductTypeName</td>
+                                                <td class="@alignClass">@item.SkillName</td>
                                                 <td class="@alignClass">
                                                     @if (item.IsActive)
                                                     {
@@ -61,11 +67,12 @@
                                     else
                                     {
                                         <tr>
-                                            <td colspan="2" class="text-center text-muted @alignClass">@localizer["No Product Type found."]</td>
+                                            <td colspan="5" class="text-center text-muted @alignClass">@localizer["No Products found."]</td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
 

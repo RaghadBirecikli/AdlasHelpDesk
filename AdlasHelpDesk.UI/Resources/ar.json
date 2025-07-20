@@ -143,7 +143,26 @@
   "No Product Type found.": "لم يتم العثور على نوع منتج.",
   "Add New Publisher": "إضافة ناشر جديد",
   "Are you sure you want to delete this Publisher?": "هل أنت متأكد أنك تريد حذف هذا الناشر؟",
-  "No Publisher found.": "لم يتم العثور على أي ناشر."
-
+  "No Publisher found.": "لم يتم العثور على أي ناشر.",
+  "Add New Purchase Source": "إضافة مصدر شراء جديد",
+  "Are you sure you want to delete this Purchase Source?": "هل أنت متأكد أنك تريد حذف مصدر الشراء هذا؟",
+  "No Purchase Sources found.": "لم يتم العثور على أي مصادر شراء.",
+  "Purchase Source Name": "اسم مصدر الشراء",
+  "Add New Skill": "إضافة مهارة جديدة",
+  "Are you sure you want to delete this Skill?": "هل أنت متأكد أنك تريد حذف هذه المهارة؟",
+  "No Skill found.": "لم يتم العثور على أي مهارات.",
+  "Skill Name": "اسم المهارة",
+  "Add New Store": "إضافة متجر جديد",
+  "Are you sure you want to delete this Store?": "هل أنت متأكد أنك تريد حذف هذا المتجر؟",
+  "No Store found.": "لم يتم العثور على أي متاجر.",
+  "Store Name": "اسم المتجر",
+  "Tickets Management": "إدارة التذاكر",
+  "Product Type": "نوع المنتج",
+  "Skill": "المهارة",
+  "Update Product": "تحديث المنتج",
+  "Select ProductType": "اختر نوع المنتج",
+  "Upload Image": "تحميل صورة",
+  "Current Image": "الصورة الحالية",
+  "Image": "الصورة"
 
 }
