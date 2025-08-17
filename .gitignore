@@ -40,9 +40,9 @@ bld/
 *.publishsettings
 node_modules/
 
-# wwwroot - ignore JavaScript files
-wwwroot/*.js
+# wwwroot - ignore all JavaScript and libraries
 wwwroot/**/*.js
+wwwroot/lib/
 
-# Optional: keep specific JS file if needed
-#!wwwroot/js/site.js
+# Optional: keep specific custom JS file(s)
+!wwwroot/js/site.js
